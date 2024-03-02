@@ -200,6 +200,23 @@ class Font(ElementProxy):
         rPr.rFonts_hAnsi = value
 
     @property
+    def name_cs(self) -> str | None:
+        """The cs typeface name for this |Font|.
+
+        Causes the text it controls to appear in the named font, if a matching font is
+        found. |None| indicates the typeface is inherited from the style hierarchy.
+        """
+        rPr = self._element.rPr
+        if rPr is None:
+            return None
+        return rPr.rFonts_cs
+
+    @name.setter
+    def name_cs(self, value: str | None) -> None:
+        rPr = self._element.get_or_add_rPr()
+        rPr.rFonts_cs = value
+        
+    @property
     def no_proof(self) -> bool | None:
         """Read/write tri-state value.
 

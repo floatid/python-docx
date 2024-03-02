@@ -45,7 +45,9 @@ class CT_Fonts(BaseOxmlElement):
     hAnsi: str | None = OptionalAttribute(  # pyright: ignore[reportGeneralTypeIssues]
         "w:hAnsi", ST_String
     )
-
+    cs: str | None = OptionalAttribute(  # pyright: ignore[reportGeneralTypeIssues]
+        "w:cs", ST_String
+    )
 
 class CT_Highlight(BaseOxmlElement):
     """`w:highlight` element, specifying font highlighting/background color."""
@@ -225,6 +227,21 @@ class CT_RPr(BaseOxmlElement):
             return
         rFonts = self.get_or_add_rFonts()
         rFonts.hAnsi = value
+
+    @property
+    def rFonts_cs(self) -> str | None:
+        """The value of `w:rFonts/@w:cs` or |None| if not present."""
+        rFonts = self.rFonts
+        if rFonts is None:
+            return None
+        return rFonts.cs
+
+    @rFonts_cs.setter
+    def rFonts_cs(self, value: str | None):
+        if value is None and self.rFonts is None:
+            return
+        rFonts = self.get_or_add_rFonts()
+        rFonts.cs = value
 
     @property
     def style(self) -> str | None:
