@@ -215,7 +215,7 @@ class Font(ElementProxy):
     def name_cs(self, value: str | None) -> None:
         rPr = self._element.get_or_add_rPr()
         rPr.rFonts_cs = value
-        
+
     @property
     def no_proof(self) -> bool | None:
         """Read/write tri-state value.
